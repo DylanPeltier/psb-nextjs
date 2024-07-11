@@ -62,18 +62,13 @@ export default function App() {
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="/about">
-              About Us
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
             <Link color="foreground" href="/services">
               Services
             </Link>
           </NavbarItem>
           <NavbarItem>
             <Link color="foreground" href="#">
-              Gallery
+              Projects
             </Link>
           </NavbarItem>
           <NavbarItem>
