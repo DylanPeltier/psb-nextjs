@@ -24,13 +24,15 @@ export default async function Projects() {
       <h1 className="w-auto text-left text-4xl font-semibold text-slate-950 pb-3">Our Projects</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <ProjectCard
-              key={index}
-              projectName={project.project_name}
-              projectDescription={project.description}
-              projectDate={project.end_date.toISOString().substring(0, 10)}
-              projectImage={project.project_image}
+            <div key={project.projectId}>
+              <ProjectCard
+                projectId={project.project_id}
+                key={index}
+                projectName={project.project_name}
+                projectDescription={project.description}
+                projectDate={project.end_date.toISOString().substring(0, 10)}
             />
+            </div>
           ))}
         </div>
       </div>
