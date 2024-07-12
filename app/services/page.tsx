@@ -26,7 +26,7 @@ export default function Services() {
 
       <div className="w-4/5 h-auto flex flex-col items-left justify-center gap-8 p-4">
         <h1 className="w-auto text-left text-4xl font-semibold text-slate-950">Message From The Owner</h1>
-        <p className="font-normal text-xl">"After years of seeing what a restored car or an old piece of equipment can look like I thought it would be nice to try and be part of that restoration so I have opened a business that cleans and removes rust, dirt, grim and graffiti to start the restoration process. We service from Chatham-Kent to Essex and all surrounding areas.”</p>
+        <p className="font-normal text-xl">After years of seeing what a restored car or an old piece of equipment can look like I thought it would be nice to try and be part of that restoration so I have opened a business that cleans and removes rust, dirt, grim and graffiti to start the restoration process. We service from Chatham-Kent to Essex and all surrounding areas.</p>
       </div>
     </section>
   );
