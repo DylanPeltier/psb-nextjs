@@ -73,9 +73,7 @@ export default function App() {
           </NavbarItem>
           <NavbarItem>
             {isAdmin && (
-                <Link href="/admin/dashboard">
-                  <AdminButton />
-                </Link>
+                <AdminButton />
               )}
           </NavbarItem>
         </NavbarContent>

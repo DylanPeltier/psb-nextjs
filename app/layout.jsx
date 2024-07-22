@@ -2,7 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "./providers";
 import Navbar from "./components/Navbar";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
+import {Spinner} from "@nextui-org/react";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -13,14 +14,22 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <Provider>
-            <Navbar />
+          <ClerkLoading>
+            <div className="flex w-screen h-screen justify-center items-center">
+              <Spinner color="primary" size="lg" />
+            </div>
+          </ClerkLoading>
+          <ClerkLoaded>
+            <div id="navbar">
+              <Navbar />
+            </div>
             {children}
-          </Provider>
+          </ClerkLoaded>
         </body>
       </html>
     </ClerkProvider>
