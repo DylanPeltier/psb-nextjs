@@ -11,12 +11,11 @@ export default function Admin() {
   const router = useRouter();
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // Get navabar element
-  const navbar = document.getElementById("navbar");
-  // hide navbar
-  navbar.style.display = "none";
-
   useEffect(() => {
+    // Get navabar element
+    const navbar = document.getElementById("navbar");
+    // hide navbar
+    navbar.style.display = "none";
     if (user && user.publicMetadata && user.publicMetadata.role === "admin") {
       console.log("User is admin");
       setIsAdmin(true);
@@ -33,6 +32,8 @@ export default function Admin() {
   }
 
   return (
-    <Sidebar />
+    <div className="w-screen h-screen">
+      <Sidebar />
+    </div>
   );
 }
