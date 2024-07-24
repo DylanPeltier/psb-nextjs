@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from "react";
 import { Link, Button } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
