@@ -7,9 +7,13 @@ import { SidebarItem } from "./SidebarItem";
 import { Divider } from "@nextui-org/react";
 import { DashboardIcon } from "./DashboardIcon";
 import { LayoutDashboard } from 'lucide-react';
+import { useRouter } from "next/navigation";
+import { FolderOpen } from 'lucide-react';
+import { House } from 'lucide-react';
 
 export default function Sidebar() {
   const [activeItem, setActiveItem] = useState(null);
+  const router = useRouter();
 
   return (
     <div className="flex w-fit h-screen flex-col items-start justify-start border-r-1 border-slate-300 gap-3 p-6">
@@ -26,21 +30,25 @@ export default function Sidebar() {
       <SidebarItem
         title="Home"
         active={activeItem === "Home"}
-        onClick={() => setActiveItem("Home")}
-        icon={<LayoutDashboard size={20} fill="#2962ff" strokeWidth={1} color="#2962ff" />}
+        onClick={() => {
+          setActiveItem("Home")
+          router.push("/admin")
+        }
+      }
+        icon={<House size={20} strokeWidth={1} fill="#2962ff"/>}
       />
 
       <Divider className="w-full" />
 
       <SidebarItem
-        title="Profile"
+        title="Projects"
         active={activeItem === "Profile"}
-        onClick={() => setActiveItem("Profile")}
-      />
-      <SidebarItem
-        title="Settings"
-        active={activeItem === "Settings"}
-        onClick={() => setActiveItem("Settings")}
+        onClick={() => {
+          setActiveItem("Profile")
+          router.push("/admin/projects")
+        }
+      }
+      icon={<FolderOpen size={20} fill="#2962ff" strokeWidth={1} color="#EBF5FF" />}
       />
     </div>
   );
