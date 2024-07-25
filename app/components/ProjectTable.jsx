@@ -4,12 +4,32 @@ import { EditIcon } from "./EditIcon";
 import { DeleteIcon } from "./DeleteIcon";
 import { EyeIcon } from "./EyeIcon";
 import { columns } from "./data"; // Adjust the path if needed
-import { fetchProjects, deleteProject } from "../../backend/lib/api/projects"; // Adjust the path if needed
 
 const statusColorMap = {
   done: "success",
   planned: "warning",
 };
+
+async function fetchProjects() {
+  const response = await fetch('/api/projects');
+  if (!response.ok) {
+    throw new Error('Failed to fetch projects');
+  }
+  return await response.json();
+}
+
+async function deleteProject(id) {
+  const response = await fetch('/api/projects', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  });
+  // if (!response.ok) {
+  //   throw new Error('Failed to delete project');
+  // }
+}
 
 export default function ProjectTable() {
   const [projects, setProjects] = useState([]);
@@ -20,7 +40,6 @@ export default function ProjectTable() {
     const loadProjects = async () => {
       try {
         const data = await fetchProjects();
-        console.log(data); // Log the data to check its structure
         setProjects(data);
       } catch (err) {
         setError(err.message);
@@ -42,11 +61,10 @@ export default function ProjectTable() {
 
   const renderCell = (project, columnKey) => {
     const cellValue = project[columnKey];
-    console.log(columnKey, cellValue); // Log columnKey and cellValue for debugging
 
     switch (columnKey) {
-      case "name":
-        return <p>{project.projectName || "N/A"}</p>; // Adjusted to use cellValue
+      case "project_name":
+        return <p>{cellValue || "N/A"}</p>;
       case "type":
         return <p className="capitalize">{cellValue || "N/A"}</p>;
       case "status":
