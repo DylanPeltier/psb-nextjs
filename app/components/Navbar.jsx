@@ -80,7 +80,7 @@ export default function App() {
         <NavbarContent justify="end">
           <NavbarItem>
             <SignedOut>
-              <SignInButton />
+              <SignInButton className="bg-primary-500 rounded-xl px-4 py-2 text-white font-semibold text-small" />
             </SignedOut>
             <SignedIn>
               <UserButton />
