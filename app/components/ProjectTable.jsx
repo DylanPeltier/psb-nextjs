@@ -1,42 +1,50 @@
-import React from "react";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, getKeyValue} from "@nextui-org/react";
-import {EditIcon} from "./EditIcon";
-import {DeleteIcon} from "./DeleteIcon";
-import {EyeIcon} from "./EyeIcon";
-import {columns, users} from "./data";
+import React, { useEffect, useState } from "react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, Tooltip } from "@nextui-org/react";
+import { EditIcon } from "./EditIcon";
+import { DeleteIcon } from "./DeleteIcon";
+import { EyeIcon } from "./EyeIcon";
+import { columns } from "./data"; // Adjust the path if needed
 
 const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
+  done: "success",
+  planned: "warning",
 };
 
 export default function ProjectTable() {
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const response = await fetch('/api/projects');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setProjects(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProjects();
+  }, []);
+
+  const renderCell = (project, columnKey) => {
+    const cellValue = project[columnKey];
 
     switch (columnKey) {
       case "name":
-        return (
-          <User
-            avatarProps={{radius: "lg", src: user.avatar}}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">{user.team}</p>
-          </div>
-        );
+        return <p>{cellValue || "N/A"}</p>;
+      case "type":
+        return <p className="capitalize">{cellValue || "N/A"}</p>;
       case "status":
         return (
-          <Chip className="capitalize" color={statusColorMap[user.status]} size="sm" variant="flat">
-            {cellValue}
+          <Chip radius="sm" className="capitalize" color={statusColorMap[cellValue]} size="sm" variant="flat">
+            <p className="font-semibold uppercase">{cellValue}</p>
           </Chip>
         );
       case "actions":
@@ -62,10 +70,13 @@ export default function ProjectTable() {
       default:
         return cellValue;
     }
-  }, []);
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-  <Table aria-label="Example table with custom cells">
+    <Table aria-label="Projects table">
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
@@ -73,9 +84,9 @@ export default function ProjectTable() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={users}>
+      <TableBody items={projects}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.project_id}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
           </TableRow>
         )}
