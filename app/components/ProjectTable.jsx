@@ -4,6 +4,7 @@ import { EditIcon } from "./EditIcon";
 import { DeleteIcon } from "./DeleteIcon";
 import { EyeIcon } from "./EyeIcon";
 import { columns } from "./data"; // Adjust the path if needed
+import { fetchProjects, deleteProject } from "../../backend/lib/api/projects"; // Adjust the path if needed
 
 const statusColorMap = {
   done: "success",
@@ -18,11 +19,8 @@ export default function ProjectTable() {
   useEffect(() => {
     const loadProjects = async () => {
       try {
-        const response = await fetch('/api/projects');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
+        const data = await fetchProjects();
+        console.log(data); // Log the data to check its structure
         setProjects(data);
       } catch (err) {
         setError(err.message);
@@ -33,12 +31,22 @@ export default function ProjectTable() {
     loadProjects();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteProject(id);
+      setProjects((prevProjects) => prevProjects.filter((project) => project.project_id !== id));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   const renderCell = (project, columnKey) => {
     const cellValue = project[columnKey];
+    console.log(columnKey, cellValue); // Log columnKey and cellValue for debugging
 
     switch (columnKey) {
       case "name":
-        return <p>{cellValue || "N/A"}</p>;
+        return <p>{project.projectName || "N/A"}</p>; // Adjusted to use cellValue
       case "type":
         return <p className="capitalize">{cellValue || "N/A"}</p>;
       case "status":
@@ -61,7 +69,10 @@ export default function ProjectTable() {
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete project">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+              <span
+                className="text-lg text-danger cursor-pointer active:opacity-50"
+                onClick={() => handleDelete(project.project_id)}
+              >
                 <DeleteIcon />
               </span>
             </Tooltip>
