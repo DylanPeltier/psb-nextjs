@@ -21,10 +21,19 @@ export default function Sidebar({ toggleSidebar }) {
     }
   }, [pathname]);
 
+  const handleGoBackHome = () => {
+    // Show the navbar before redirecting
+    const navbar = document.getElementById("navbar");
+    if (navbar) {
+      navbar.style.display = "block";
+    }
+    router.push("/");
+  };
+
   return (
     <div className="flex w-fit h-screen flex-col items-start justify-start border-r-1 border-slate-300 gap-3 p-6 bg-slate-50">
       <div id="company-card" className="flex flex-row w-fit h-fit gap-3 items-center justify-center mb-8">
-        <div className="border-1 border-slate-300 rounded-md w-fit h-fit">
+        <div onClick={handleGoBackHome} className="border-1 border-slate-300 rounded-md w-fit h-fit cursor-pointer">
           <AcmeLogo />
         </div>
         <div className="flex flex-col items-start justify-center w-full h-fit">
