@@ -45,6 +45,7 @@ export default function AddProjectModal({
                   label="Title"
                   className="w-full text-base"
                   variant="bordered"
+                  size="lg"
                 />
                 <Input
                   name="content"
@@ -52,6 +53,7 @@ export default function AddProjectModal({
                   label="Description"
                   className="w-full text-base"
                   variant="bordered"
+                  size="lg"
                 />
                 <RadioGroup label="Select project type" name="type">
                   <Radio value="residential">Residential</Radio>
