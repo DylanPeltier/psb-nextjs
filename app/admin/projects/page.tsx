@@ -12,12 +12,15 @@ import {
   ModalFooter,
   ModalContent,
 } from "@nextui-org/react";
+import AddProjectModal from "../../components/AddProjectModal"; // Import the AddProjectModal component
+import { addProject } from "../../actions/addProject"; // Import the server action
 
 export default function AdminProjects() {
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
   const [showModal, setShowModal] = useState(false);
   const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
   const [projects, setProjects] = useState<any[]>([]);
+  const [showAddProjectModal, setShowAddProjectModal] = useState(false); // State for Add Project Modal
 
   const isEditButtonDisabled = selectedKeys.size !== 1;
   const isDeleteButtonDisabled = selectedKeys.size === 0;
@@ -40,6 +43,16 @@ export default function AdminProjects() {
   useEffect(() => {
     fetchProjects(); // Fetch projects on component mount
   }, []);
+
+  const handleAddProject = async (formData) => {
+    try {
+      await addProject(formData);
+      setShowAddProjectModal(false); // Close the modal on successful submission
+      await fetchProjects(); // Refresh the projects list
+    } catch (error) {
+      console.error("Error adding project:", error);
+    }
+  };
 
   const handleDelete = async () => {
     if (projectToDelete) {
@@ -82,7 +95,11 @@ export default function AdminProjects() {
             className="w-40 flex-none mb-2"
           />
           <div className="flex flex-row items-center justify-between gap-2 h-full">
-            <Button color="primary" className="font-semibold">
+            <Button
+              color="primary"
+              className="font-semibold"
+              onClick={() => setShowAddProjectModal(true)} // Show Add Project Modal
+            >
               Add Project
             </Button>
             <Divider orientation="vertical" className="mx-2" />
@@ -110,6 +127,13 @@ export default function AdminProjects() {
           />
         </div>
       </div>
+
+      {/* Add Project Modal */}
+      <AddProjectModal
+        isOpen={showAddProjectModal}
+        onOpenChange={setShowAddProjectModal}
+        onAddProject={handleAddProject} // Pass the handleAddProject function
+      />
 
       {/* Confirmation Modal */}
       <Modal
