@@ -4,7 +4,7 @@ import AdminProjectCard from "../components/AdminProjectCard";
 import React, { useState } from "react";
 
 export default function Admin() {
-  const [underConstruction, setUnderConstruction] = useState(false);
+  const [underConstruction, setUnderConstruction] = useState(true);
 
   if (underConstruction) {
     return (
