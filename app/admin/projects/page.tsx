@@ -76,20 +76,20 @@ export default function AdminProjects() {
     <div className="w-full h-full flex flex-col items-start justify-start gap-10 p-10">
       <div className="w-full h-fit flex flex-col items-start justify-start gap-3">
         <p className="text-2xl font-semibold mb-2">All Projects</p>
-        <div className="flex flex-row items-start justify-between w-full">
+        <div className="flex lg:flex-row items-start justify-between w-full h-fit sm:flex-col sm:gap-2 sm:mb-1">
           <Input
             placeholder="Search Projects..."
             className="w-40 flex-none mb-2"
           />
-          <div className="flex flex-row items-center justify-between gap-2">
+          <div className="flex flex-row items-center justify-between gap-2 h-full">
             <Button color="primary" className="font-semibold">
               Add Project
             </Button>
-            <Divider orientation="vertical" className="my-2 bg-slate-300" />
+            <Divider orientation="vertical" className="mx-2" />
             <Button
               color="primary"
               className="font-semibold"
-              isDisabled={isEditButtonDisabled}
+              isDisabled={selectedKeys.size !== 1}
             >
               Edit Project
             </Button>
