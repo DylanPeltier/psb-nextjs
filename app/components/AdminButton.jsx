@@ -1,10 +1,17 @@
 import React from "react";
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
-export function AdminButton() {
+export function AdminButton({ btnSize }) {
   const router = useRouter();
   return (
-    <Button onClick={() => router.push("/admin")} color="primary" size="sm" className="text-sm">Admin</Button>
+    <Button
+      onClick={() => router.push("/admin")}
+      color="primary"
+      size={btnSize}
+      className="text-sm"
+    >
+      Admin
+    </Button>
   );
 }

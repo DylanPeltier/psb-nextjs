@@ -1,8 +1,18 @@
-'use client';
+"use client";
 
 import AdminProjectCard from "../components/AdminProjectCard";
+import React, { useState } from "react";
 
 export default function Admin() {
+  const [underConstruction, setUnderConstruction] = useState(true);
+
+  if (underConstruction) {
+    return (
+      <div className="w-full h-[calc(100%-81px)] flex flex-col items-center justify-center gap-10 p-4">
+        Page Under Construction
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex flex-col items-start justify-start gap-10 p-10">
