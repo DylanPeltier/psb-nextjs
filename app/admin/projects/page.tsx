@@ -86,7 +86,7 @@ export default function AdminProjects() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-start justify-start gap-10 p-10">
+    <div className="w-full h-full flex flex-col items-start justify-start gap-10 p-10 sm:p-0">
       <div className="w-full h-fit flex flex-col items-start justify-start gap-3">
         <p className="text-2xl font-semibold mb-2">All Projects</p>
         <div className="flex lg:flex-row items-start justify-between w-full h-fit sm:flex-col sm:gap-2 sm:mb-1">
