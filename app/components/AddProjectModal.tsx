@@ -43,14 +43,14 @@ export default function AddProjectModal({
                   name="title"
                   type="text"
                   label="Title"
-                  className="w-full"
+                  className="w-full text-base"
                   variant="bordered"
                 />
                 <Input
                   name="content"
                   type="text"
                   label="Description"
-                  className="w-full text-xl"
+                  className="w-full text-base"
                   variant="bordered"
                 />
                 <RadioGroup label="Select project type" name="type">
