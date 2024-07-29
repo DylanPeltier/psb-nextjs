@@ -1,5 +1,7 @@
+// /app/api/projects/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "../../../lib/db";
+import prisma from "../../../lib/db"; // Adjust the path to your Prisma client
 
 export async function GET(req: NextRequest) {
   try {
@@ -17,17 +19,17 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const { id } = await req.json();
-    if (!id) {
+    console.log("Received ID:", id); // Debugging line
+
+    if (!id || typeof id !== "string") {
       return NextResponse.json(
-        { error: "No project ID provided" },
+        { error: "Invalid or missing project ID" },
         { status: 400 }
       );
     }
 
-    const deletedProject = await prisma.project.delete({
-      where: { id },
-    });
-
+    const deletedProject = await prisma.project.delete({ where: { id } });
+    console.log("Deleted Project:", deletedProject); // Debugging line
     return NextResponse.json(deletedProject);
   } catch (error) {
     console.error("Error deleting project:", error);

@@ -94,7 +94,10 @@ export default function ProjectTable({
               <TableCell>{item.type}</TableCell>
               <TableCell>
                 {item.status === "planned" || item.status === "done" ? (
-                  <Chip color={item.status === "done" ? "success" : "warning"}>
+                  <Chip
+                    className="capitalize"
+                    color={item.status === "done" ? "success" : "warning"}
+                  >
                     {item.status}
                   </Chip>
                 ) : (
