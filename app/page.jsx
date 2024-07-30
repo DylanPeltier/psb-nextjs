@@ -69,17 +69,16 @@ export default function Home() {
       </div>
 
       <div className="w-11/12 flex flex-col items-start lg:items-center justify-start">
-        <p className="text-4xl lg:text-3xl">Owner's Testimonial</p>
+        <p className="text-4xl lg:text-3xl">Owner Testimonial</p>
       </div>
 
       <div className="flex items-start justify-start w-11/12 lg:w-full mb-14">
         <p className="text-2xl lg:text-center">
-          "After years of seeing what a restored car or an old piece of
-          equipment can look like I thought it would be nice to try and be part
-          of that restoration so I have opened a business that cleans and
-          removes rust, dirt, grim and graffiti to start the restoration
-          process. We service from Chatham-Kent to Essex and all surrounding
-          areas.”
+          After years of seeing what a restored car or an old piece of equipment
+          can look like I thought it would be nice to try and be part of that
+          restoration so I have opened a business that cleans and removes rust,
+          dirt, grim and graffiti to start the restoration process. We service
+          from Chatham-Kent to Essex and all surrounding areas.
         </p>
       </div>
     </div>
