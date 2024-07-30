@@ -15,11 +15,7 @@ export default function AdminLayout({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const toggleNavbar = () => {
-    setIsNavbarOpen(!isNavbarOpen);
+    setIsSidebarOpen((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -70,7 +66,9 @@ export default function AdminLayout({ children }) {
       <div
         className={`fixed inset-y-0 left-0 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out z-40 md:relative md:translate-x-0 md:flex`}
+        } transition-transform duration-300 ease-in-out z-40 relative translate-x-0 md:fixed md:${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <Sidebar toggleSidebar={toggleSidebar} />
       </div>
@@ -78,7 +76,7 @@ export default function AdminLayout({ children }) {
       {/* Overlay for darkening effect */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:block"
           onClick={toggleSidebar}
         ></div>
       )}
@@ -87,7 +85,13 @@ export default function AdminLayout({ children }) {
       <div className="flex-1 flex flex-col relative z-20">
         <AdminNavbar>
           {/* Hamburger Menu for smaller screens */}
-          <button className="p-2 text-xl md:hidden" onClick={toggleSidebar}>
+          <button
+            className="p-2 text-xl hidden md:block cursor-pointer z-50"
+            onClick={() => {
+              console.log("toggleSidebar");
+              toggleSidebar();
+            }}
+          >
             <Menu color="#020617" />
           </button>
         </AdminNavbar>
