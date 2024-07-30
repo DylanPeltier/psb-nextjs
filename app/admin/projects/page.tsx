@@ -14,23 +14,46 @@ import {
 } from "@nextui-org/react";
 import AddProjectModal from "../../components/AddProjectModal"; // Import the AddProjectModal component
 import { addProject } from "../../actions/addProject"; // Import the server action
+import EditProjectModal from "../../components/EditProjectModal"; // Import the EditProjectModal component
+
+interface Project {
+  id: string;
+  title: string;
+  content: string;
+  type: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export default function AdminProjects() {
-  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+  const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [showAddProjectModal, setShowAddProjectModal] = useState(false); // State for Add Project Modal
+  const [showEditProjectModal, setShowEditProjectModal] = useState(false); // State for Edit Project Modal
+  const [projectToEdit, setProjectToEdit] = useState<Project | null>(null);
 
-  const isEditButtonDisabled = selectedKeys.size !== 1;
-  const isDeleteButtonDisabled = selectedKeys.size === 0;
+  const isEditButtonDisabled = !selectedKey;
+  const isDeleteButtonDisabled = !selectedKey;
+
+  const openEditModal = () => {
+    if (selectedKey) {
+      const projectToEdit = projects.find((p) => p.id === selectedKey);
+      if (projectToEdit) {
+        setProjectToEdit(projectToEdit);
+        setShowEditProjectModal(true);
+      }
+    }
+  };
 
   // Function to fetch projects
-  const fetchProjects = async () => {
+  const fetchProjects = async (): Promise<void> => {
     try {
       const response = await fetch("/api/projects");
       if (response.ok) {
-        const data = await response.json();
+        const data: Project[] = await response.json();
         setProjects(data);
       } else {
         console.error("Failed to fetch projects");
@@ -79,8 +102,8 @@ export default function AdminProjects() {
   };
 
   const openModalForDeletion = () => {
-    if (selectedKeys.size === 1) {
-      setProjectToDelete([...selectedKeys][0]); // Set the selected project for deletion
+    if (selectedKey) {
+      setProjectToDelete(selectedKey); // Set the selected project for deletion
       setShowModal(true); // Show the modal
     }
   };
@@ -106,7 +129,8 @@ export default function AdminProjects() {
             <Button
               color="primary"
               className="font-semibold"
-              isDisabled={selectedKeys.size !== 1}
+              isDisabled={isEditButtonDisabled}
+              onPress={openEditModal}
             >
               Edit Project
             </Button>
@@ -123,7 +147,8 @@ export default function AdminProjects() {
         <div className="flex flex-row w-full h-fit gap-8 items-start justify-start">
           <ProjectTable
             projects={projects}
-            onSelectionChange={setSelectedKeys}
+            onSelectionChange={(key) => setSelectedKey(key as string)}
+            selectedKey={selectedKey}
           />
         </div>
       </div>
@@ -135,6 +160,13 @@ export default function AdminProjects() {
         onAddProject={handleAddProject} // Pass the handleAddProject function
       />
 
+      <EditProjectModal
+        isOpen={showEditProjectModal}
+        onOpenChange={setShowEditProjectModal}
+        project={projectToEdit}
+        onProjectEdited={fetchProjects}
+      />
+
       {/* Confirmation Modal */}
       <Modal
         isOpen={showModal}
@@ -143,6 +175,7 @@ export default function AdminProjects() {
         radius="md"
         shadow="lg"
         backdrop="opaque"
+        placement="center"
       >
         <ModalContent>
           {(onClose) => (
@@ -158,7 +191,7 @@ export default function AdminProjects() {
                   Cancel
                 </Button>
                 <Button
-                  color="primary"
+                  color="danger"
                   onClick={() => {
                     handleDelete();
                     onClose();

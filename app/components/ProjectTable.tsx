@@ -24,20 +24,21 @@ interface Project {
 
 interface ProjectTableProps {
   projects: Project[];
-  onSelectionChange: (keys: Set<string>) => void;
+  onSelectionChange: (key: string | null) => void;
+  selectedKey: string | null;
 }
 
 export default function ProjectTable({
   projects,
   onSelectionChange,
+  selectedKey,
 }: ProjectTableProps) {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const rowsPerPage = 4;
-  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    setLoading(false); // Assume projects are passed in directly, so loading is false
+    setLoading(false);
   }, [projects]);
 
   const pages = Math.ceil(projects.length / rowsPerPage);
@@ -45,13 +46,12 @@ export default function ProjectTable({
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-
     return projects.slice(start, end);
   }, [page, projects]);
 
   const handleSelectionChange = (keys: Set<string>) => {
-    setSelectedKeys(keys);
-    onSelectionChange(keys);
+    const selectedKey = keys.size > 0 ? Array.from(keys)[0] : null;
+    onSelectionChange(selectedKey);
   };
 
   if (loading) {
@@ -62,9 +62,10 @@ export default function ProjectTable({
     <div className="flex flex-col gap-3 w-full">
       <Table
         aria-label="Example table with client side pagination"
-        selectionMode="multiple"
-        selectedKeys={selectedKeys}
+        selectionMode="single"
+        selectedKeys={selectedKey ? new Set([selectedKey]) : new Set()}
         onSelectionChange={handleSelectionChange}
+        color="primary"
         bottomContent={
           <div className="flex w-full justify-center">
             <Pagination
@@ -87,16 +88,17 @@ export default function ProjectTable({
           <TableColumn key="type">TYPE</TableColumn>
           <TableColumn key="status">STATUS</TableColumn>
         </TableHeader>
-        <TableBody>
-          {items.map((item) => (
+        <TableBody items={items}>
+          {(item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.title}</TableCell>
-              <TableCell>{item.type}</TableCell>
+              <TableCell className="capitalize">{item.title}</TableCell>
+              <TableCell className="capitalize">{item.type}</TableCell>
               <TableCell>
                 {item.status === "planned" || item.status === "done" ? (
                   <Chip
-                    className="capitalize"
+                    className="uppercase"
                     color={item.status === "done" ? "success" : "warning"}
+                    size="sm"
                   >
                     {item.status}
                   </Chip>
@@ -105,7 +107,7 @@ export default function ProjectTable({
                 )}
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>
