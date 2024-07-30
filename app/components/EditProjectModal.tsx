@@ -92,16 +92,19 @@ export default function EditProjectModal({
             <ModalBody>
               <Input
                 label="Title"
+                size="lg"
                 value={editedProject.title}
                 onChange={(e) => handleInputChange("title", e.target.value)}
               />
               <Input
                 label="Content"
+                size="lg"
                 value={editedProject.content}
                 onChange={(e) => handleInputChange("content", e.target.value)}
               />
               <Select
                 label="Type"
+                size="lg"
                 selectedKeys={[editedProject.type]}
                 onChange={(e) => handleInputChange("type", e.target.value)}
               >
@@ -121,6 +124,7 @@ export default function EditProjectModal({
               </Select>
               <Select
                 label="Status"
+                size="lg"
                 selectedKeys={[editedProject.status]}
                 onChange={(e) => handleInputChange("status", e.target.value)}
               >

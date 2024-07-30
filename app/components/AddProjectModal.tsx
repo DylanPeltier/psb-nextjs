@@ -57,17 +57,20 @@ export default function AddProjectModal({
                 type="text"
                 label="Title"
                 className="w-full"
+                size="lg"
               />
               <Input
                 name="content"
                 type="text"
                 label="Description"
                 className="w-full"
+                size="lg"
               />
               <Select
                 name="type"
                 label="Select project type"
                 className="w-full"
+                size="lg"
               >
                 <SelectItem key="residential" value="residential">
                   Residential
@@ -84,6 +87,7 @@ export default function AddProjectModal({
               </Select>
               <Select
                 name="status"
+                size="lg"
                 label="Select project status"
                 className="w-full"
               >
