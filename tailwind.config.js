@@ -11,7 +11,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      screens: { sm: { max: "640px" } },
+      screens: {
+        sm: { max: "640px" },
+        md: { max: "768px" },
+        lg: { max: "1024px" },
+        xl: { max: "1280px" },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
