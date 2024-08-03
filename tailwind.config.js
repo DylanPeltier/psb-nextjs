@@ -16,6 +16,9 @@ module.exports = {
         md: { max: "768px" },
         lg: { max: "1024px" },
         xl: { max: "1280px" },
+        "min-sm": "640px",
+        "min-md": "768px",
+        "min-lg": "1024px",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

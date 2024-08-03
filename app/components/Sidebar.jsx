@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { Link, Button, Divider } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
@@ -13,7 +11,6 @@ export default function Sidebar({ toggleSidebar }) {
   const pathname = usePathname();
 
   const handleGoBackHome = () => {
-    // Show the navbar before redirecting
     const navbar = document.getElementById("navbar");
     if (navbar) {
       navbar.style.display = "block";
@@ -22,7 +19,6 @@ export default function Sidebar({ toggleSidebar }) {
   };
 
   useEffect(() => {
-    // Determine the active item based on the current route
     if (pathname === "/admin") {
       setActiveItem("Home");
     } else if (pathname === "/admin/projects") {
@@ -31,12 +27,12 @@ export default function Sidebar({ toggleSidebar }) {
   }, [pathname]);
 
   return (
-    <div className="flex w-fit h-screen flex-col items-start justify-start border-r-1 border-slate-300 gap-3 p-6 bg-slate-50">
+    <div className="flex w-fit h-screen flex-col items-start justify-start border-r border-slate-300 gap-3 p-6 bg-slate-50">
       <div
         id="company-card"
         className="flex flex-row w-fit h-fit gap-3 items-center justify-center mb-8"
       >
-        <div className="border-1 border-slate-300 rounded-md w-fit h-fit">
+        <div className="border border-slate-300 rounded-md w-fit h-fit">
           <AcmeLogo />
         </div>
         <div className="flex flex-col items-start justify-center w-full h-fit">

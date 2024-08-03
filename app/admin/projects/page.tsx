@@ -112,23 +112,23 @@ export default function AdminProjects() {
     <div className="w-full h-full flex flex-col items-start justify-start gap-10 p-10 sm:p-0">
       <div className="w-full h-fit flex flex-col items-start justify-start gap-3">
         <p className="text-2xl font-semibold mb-2">All Projects</p>
-        <div className="flex lg:flex-row items-start justify-between w-full h-fit sm:flex-col sm:gap-2 sm:mb-1">
+        <div className="flex min-lg:flex-row items-start justify-between w-full h-fit sm:flex-col sm:gap-2 sm:mb-1">
           <Input
             placeholder="Search Projects..."
-            className="w-40 flex-none mb-2"
+            className="w-40 sm:w-full flex-none sm:mb-2"
           />
-          <div className="flex flex-row items-center justify-between gap-2 h-full">
+          <div className="flex flex-row sm:flex-col items-center justify-between gap-2 h-full sm:h-fit sm:w-full">
             <Button
               color="primary"
-              className="font-semibold"
+              className="font-semibold sm:w-full"
               onClick={() => setShowAddProjectModal(true)} // Show Add Project Modal
             >
               Add Project
             </Button>
-            <Divider orientation="vertical" className="mx-2" />
+            <Divider orientation="vertical" className="mx-2 hidden h-fit" />
             <Button
               color="primary"
-              className="font-semibold"
+              className="font-semibold sm:w-full"
               isDisabled={isEditButtonDisabled}
               onPress={openEditModal}
             >
@@ -136,7 +136,7 @@ export default function AdminProjects() {
             </Button>
             <Button
               color="danger"
-              className="font-semibold"
+              className="font-semibold sm:w-full"
               isDisabled={isDeleteButtonDisabled}
               onClick={openModalForDeletion}
             >
