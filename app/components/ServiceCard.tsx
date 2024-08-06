@@ -20,9 +20,9 @@ export default function ServiceCard({ service }: ServiceCardProps) {
     <div className="flex flex-col items-start justify-start w-[320px] h-[420px] bg-slate-200 rounded-xl">
       <Image
         src={img_url}
-        alt={img_alt}
         width={320}
         height={155}
+        alt={img_alt}
         className="w-full h-[200px] rounded-t-xl pb-[25px]"
       ></Image>
       <p className="text-lg font-semibold px-8 pb-2">{name}</p>
