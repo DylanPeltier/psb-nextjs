@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar.jsx";
 import { Ship, House, Building2, Car, MoveRight } from "lucide-react";
 import ReviewCard from "./components/ReviewCard.tsx";
 import ServiceCard from "./components/ServiceCard.tsx";
+import Image from "next/image";
 
 export default function Home() {
   const firstReview = {
@@ -55,7 +56,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-start w-full h-fit bg-slate-100">
       {/* Hero Section */}
-      <div className="w-full h-[400px] bg-slate-100 px-60 py-16 flex flex-col items-start justify-center gap-10">
+      <div className="w-full h-[400px] bg-slate-100 px-60 py-16 flex flex-col items-start justify-center gap-10 mt-14">
         <p className="text-6xl font-bold text-left w-[800px]">
           Revitalize surfaces with our eco-friendly dustless sandblasting
           service
@@ -83,7 +84,7 @@ export default function Home() {
       <div className="flex flex-col w-full bg-slate-200 items-center pb-8">
         <p className="font-semibold text-2xl p-8">Reviews from our customers</p>
         {/* map over the reviews array and render each review as a ReviewCard component */}
-        <div className="flex flex-row gap-[25px] w-fit">
+        <div className="flex flex-row gap-[25px] w-fit pb-3">
           {Reviews.map((review) => (
             <ReviewCard key={review.author_name} review={review} />
           ))}
@@ -96,11 +97,56 @@ export default function Home() {
           Range of services to suit your exact need
         </p>
         {/* map over the services array and render each service as a ServiceCard component */}
-        <div className="flex flex-row gap-[25px] w-fit">
+        <div className="flex flex-row gap-[25px] w-fit pb-3">
           {Services.map((service) => (
             <ServiceCard key={service.name} service={service} />
           ))}
         </div>
+      </div>
+
+      {/* About Us Section */}
+      <div className="flex flex-col w-full bg-slate-200 items-start pb-8 px-52 pt-8">
+        <p className="font-semibold text-2xl pb-3">About us</p>
+        <div className="flex flex-row w-full items-start justify-start">
+          <div className="flex flex-col items-start justify-start w-fit">
+            <p className="font-medium text-xl pb-3">
+              {"Hi, I'm Dan, owner of Precision Sandblasting."}
+            </p>
+            <div className="flex flex-col items-start justify-center gap-3 w-4/5">
+              <p className="font-regular text-xl">
+                {
+                  "After years of seeing what a restored car or an old piece of equipment can look like I thought it would be nice to try and be part of that restoration process."
+                }
+              </p>
+              <p className="font-regular text-xl">
+                {
+                  "Thus, I created Precision Sandblasting to clean and remove rust, dirt, grim and graffiti to start the restoration process."
+                }
+              </p>
+              <p className="font-regular text-xl pb-5">
+                {
+                  "We service from Chatham-Kent to Essex and all surrounding areas."
+                }
+              </p>
+            </div>
+          </div>
+          <Image
+            src={
+              "https://utfs.io/f/bdd6f4cc-ba88-42c9-bd33-9df93d5ba202-4mkzy1.jpg"
+            }
+            width={390}
+            height={415}
+            alt="Image of Dan Peltier"
+            className="rounded-2xl h-full"
+          ></Image>
+        </div>
+        <Button
+          color="primary"
+          variant="bordered"
+          className="text-primary-500 font-medium rounded-xl text-lg px-8 py-2"
+        >
+          {"Let's talk"}
+        </Button>
       </div>
     </div>
   );

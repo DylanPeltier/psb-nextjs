@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
             </div>
           </ClerkLoading>
           <ClerkLoaded>
-            <div id="navbar">
+            <div id="navbar" className="fixed w-full z-50">
               <Navbar />
             </div>
             {children}
