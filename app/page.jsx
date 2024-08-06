@@ -27,29 +27,30 @@ export default function Home() {
 
   const Reviews = [firstReview, secondReview, thirdReview];
 
-  const Services = [
-    {
-      text: "We can clean home exteriors, decks, patio furniture, swimming pools, concrete, docks and breakwalls.",
-      name: "Residential",
-      img_url:
-        "https://utfs.io/f/8e35559f-8252-4138-bfa5-2cfa0ca8d1a5-nnrpl8.jpg",
-      img_alt: "Person sandblasting side of residential building",
-    },
-    {
-      text: "We can remove paint, rust, body filler and powder coating to allow you to finish your project quicker and more efficient than sanding by hand.",
-      name: "Automotive",
-      img_url:
-        "https://utfs.io/f/4fdf4e26-5717-4f50-85a4-a3416a7d6b62-39n1xz.jpg",
-      img_alt: "Person sandblasting side of car",
-    },
-    {
-      text: "We can clean building exteriors from graffiti removal, line stripe removal and much more.",
-      name: "Commercial",
-      img_url:
-        "https://utfs.io/f/5dceee71-5c9f-4ffa-a32e-9b78dda3974e-24jno.jpg",
-      img_alt: "Person sandblasting side of industrial tubing",
-    },
-  ];
+  const residentialService = {
+    text: "We can clean home exteriors, decks, patio furniture, swimming pools, concrete, docks and breakwalls.",
+    name: "Residential",
+    img_url:
+      "https://utfs.io/f/8e35559f-8252-4138-bfa5-2cfa0ca8d1a5-nnrpl8.jpg",
+    img_alt: "Person sandblasting side of residential building",
+  };
+
+  const automotiveService = {
+    text: "We can remove paint, rust, body filler and powder coating to allow you to finish your project quicker and more efficient than sanding by hand.",
+    name: "Automotive",
+    img_url:
+      "https://utfs.io/f/4fdf4e26-5717-4f50-85a4-a3416a7d6b62-39n1xz.jpg",
+    img_alt: "Person sandblasting side of car",
+  };
+
+  const commercialService = {
+    text: "We can clean building exteriors from graffiti removal, line stripe removal and much more.",
+    name: "Commercial",
+    img_url: "https://utfs.io/f/5dceee71-5c9f-4ffa-a32e-9b78dda3974e-24jno.jpg",
+    img_alt: "Person sandblasting side of industrial tubing",
+  };
+
+  const Services = [residentialService, automotiveService, commercialService];
 
   return (
     <div className="flex flex-col items-center justify-start w-full h-fit bg-slate-100">
