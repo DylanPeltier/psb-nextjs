@@ -62,7 +62,7 @@ export default function Home() {
             size="lg"
             className="text-white font-medium text-xl rounded-xl px-8 py-2"
           >
-            Let's talk
+            {"Let's talk"}
           </Button>
           <Button
             color="primary"
