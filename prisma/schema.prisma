@@ -19,4 +19,5 @@ model Project {
   updatedAt DateTime @updatedAt
   type      String
   status    String
+  pictures  String[] @default([])
 }

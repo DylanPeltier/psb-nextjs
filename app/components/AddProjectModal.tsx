@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -11,6 +13,7 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 import { addProject } from "../actions/addProject"; // Adjust the import path as necessary
+import { MultiUploader } from "../components/MultiUploader"; // Adjust the import path as necessary
 
 interface AddProjectModalProps {
   isOpen: boolean;
@@ -23,15 +26,31 @@ export default function AddProjectModal({
   onOpenChange,
   onAddProject,
 }: AddProjectModalProps) {
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleFilesUploaded = (urls: string[]) => {
+    setFileUrls(urls);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsUploading(true);
+
+    // Upload files only when the "Add Project" button is clicked
     const formData = new FormData(event.currentTarget);
+    fileUrls.forEach((url, index) =>
+      formData.append(`pictures[${index}]`, url)
+    );
+
     try {
       await onAddProject(formData); // Refresh the project list
       onOpenChange(false); // Close the modal
     } catch (error) {
       console.error("Error adding project:", error);
       // Handle error (e.g., show error message to user)
+    } finally {
+      setIsUploading(false); // Reset upload state
     }
   };
 
@@ -98,13 +117,14 @@ export default function AddProjectModal({
                   Done
                 </SelectItem>
               </Select>
+              <MultiUploader onFilesUploaded={handleFilesUploaded} />
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit" color="primary">
-                Add Project
+              <Button type="submit" color="primary" disabled={isUploading}>
+                {isUploading ? "Adding Project..." : "Add Project"}
               </Button>
             </ModalFooter>
           </form>

@@ -9,6 +9,16 @@ export async function editProject(formData: FormData) {
   const type = formData.get("type") as string;
   const status = formData.get("status") as string;
 
+  // Collect all image URLs from formData
+  const pictures: string[] = [];
+  for (let i = 0; ; i++) {
+    const pictureUrl = formData.get(`pictures[${i}]`);
+    if (pictureUrl === null) break;
+    if (typeof pictureUrl === "string") {
+      pictures.push(pictureUrl);
+    }
+  }
+
   await prisma.project.update({
     where: { id: id },
     data: {
@@ -16,6 +26,7 @@ export async function editProject(formData: FormData) {
       content,
       type,
       status,
+      pictures, // Update the pictures field
     },
   });
 }
